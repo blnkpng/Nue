@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form Output Produk</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #3E4C35;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      background: #FEFDEB;
+      border-radius: 20px;
+      padding: 36px 28px;
+      max-width: 700px;
+      width: 100%;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ddd;
+    }
+    h2 {
+      text-align: center;
+      color: #3E4C35;
+      font-weight: 600;
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+    label {
+      font-weight: 600;
+      margin-top: 18px;
+      display: block;
+      font-size: 14px;
+      color: #2b2b2b;
+    }
+    input, select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #ccc;
+      border-radius: 14px;
+      margin-top: 8px;
+      font-size: 15px;
+      background: #ffffff;
+      box-sizing: border-box;
+      transition: all 0.25s ease;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #3E4C35;
+      background: #fff;
+      box-shadow: 0 0 0 2px rgba(62, 76, 53, 0.2);
+    }
+    .readonly {
+      background-color: #f5f5f5;
+      color: #555;
+    }
+    .rp-field {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 14px;
+      margin-top: 8px;
+      background: #fff;
+    }
+    .rp-field span {
+      padding: 14px 16px;
+      background: #eee;
+      border-top-left-radius: 14px;
+      border-bottom-left-radius: 14px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #3E4C35;
+      border-right: 1px solid #ccc;
+    }
+    .rp-field input {
+      border: none;
+      background: transparent;
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 15px;
+    }
+    .rp-field input:focus {
+      outline: none;
+      background: #fff;
+    }
+    button {
+      background: #3E4C35;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      margin-top: 36px;
+      font-weight: 600;
+      font-size: 16px;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 12px rgba(62, 76, 53, 0.3);
+    }
+    button:hover {
+      background: #2f3a29;
+      box-shadow: 0 6px 16px rgba(62, 76, 53, 0.4);
+    }
+    @media (max-width: 480px) {
+      h2 { font-size: 20px; }
+      input, select { font-size: 14px; }
+      button { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Form Output Produk</h2>
+    <form id="outputForm">
+      <label for="tanggal">Tanggal</label>
+      <input type="date" id="tanggal" name="tanggal" required />
+
+      <label for="kategori">Kategori</label>
+      <select id="kategori" name="kategori" required>
+        <option value="">Pilih Kategori</option>
+      </select>
+
+      <label for="nama">Nama Produk</label>
+      <select id="nama" name="nama" required>
+        <option value="">Pilih Nama Produk</option>
+      </select>
+
+      <label for="warna">Warna</label>
+      <select id="warna" name="warna" required>
+        <option value="">Pilih Warna</option>
+      </select>
+
+      <label for="platform">Platform Pembelian</label>
+      <select id="platform" name="platform" required>
+        <option value="">Pilih Platform</option>
+        <option value="Shopee">Shopee</option>
+        <option value="Tokopedia">Tokopedia</option>
+        <option value="Offline">Offline</option>
+      </select>
+
+      <label for="metode">Metode Pembelian</label>
+      <select id="metode" name="metode" required>
+        <option value="">Pilih Metode</option>
+        <option value="Cash">Cash</option>
+        <option value="Transfer">Transfer</option>
+      </select>
+
+      <label for="qty">Qty</label>
+      <input type="number" id="qty" name="qty" required />
+
+      <label for="hargaBeli">Harga Beli</label>
+      <div class="rp-field">
+        <span>Rp</span>
+        <input type="text" id="hargaBeli" name="hargaBeli" required />
+      </div>
+
+      <label for="hargaJual">Harga Jual</label>
+      <div class="rp-field">
+        <span>Rp</span>
+        <input type="text" id="hargaJual" name="hargaJual" required />
+      </div>
+
+      <label for="totalHarga">Total Harga</label>
+      <div class="rp-field">
+        <span>Rp</span>
+        <input type="text" id="totalHarga" name="totalHarga" class="readonly" readonly />
+      </div>
+
+      <button type="submit">🚀 Kirim Data</button>
+    </form>
+  </div>
+
+<!-- GANTI HANYA BAGIAN SCRIPT JIKA DESAIN TIDAK MAU DIUBAH -->
+<script>
+  const urlBase = "https://script.google.com/macros/s/AKfycby2XSdHhbYpX0Y4d0vie_7kv8ZK7XuBZVgp3lEA59Ug7Ii8BlswEzUWzs5Jq6xnK4Y3hQ/exec";
+
+  const kategoriDropdown = document.getElementById("kategori");
+  const namaDropdown = document.getElementById("nama");
+  const warnaDropdown = document.getElementById("warna");
+  const qtyInput = document.getElementById("qty");
+  const hargaBeliInput = document.getElementById("hargaBeli");
+  const hargaJualInput = document.getElementById("hargaJual");
+  const totalInput = document.getElementById("totalHarga");
+
+  function formatRp(value) {
+    const number = parseInt(value || 0);
+    return number.toLocaleString("id-ID");
+  }
+
+  function unformatRp(value) {
+    return value.replace(/[^\d]/g, "") || "0";
+  }
+
+  function updateTotal() {
+    const harga = parseInt(unformatRp(hargaJualInput.value));
+    const qty = parseInt(qtyInput.value || "0");
+    const total = harga * qty;
+    totalInput.value = formatRp(total);
+  }
+
+  // Format input Harga Jual saat diubah
+  hargaJualInput.addEventListener("input", function () {
+    this.value = formatRp(unformatRp(this.value));
+    updateTotal();
+  });
+
+  qtyInput.addEventListener("input", updateTotal);
+
+  // Ambil Kategori dari Sheet
+  fetch(`${urlBase}?action=kategori`)
+    .then(res => res.json())
+    .then(data => {
+      kategoriDropdown.innerHTML = '<option value="">Pilih Kategori</option>';
+      data.forEach(k => {
+        kategoriDropdown.innerHTML += `<option value="${k}">${k}</option>`;
+      });
+    });
+
+  // Ketika Kategori berubah
+  kategoriDropdown.addEventListener("change", function () {
+    const kategori = this.value;
+    namaDropdown.innerHTML = '<option value="">Pilih Nama Produk</option>';
+    warnaDropdown.innerHTML = '<option value="">Pilih Warna</option>';
+    hargaBeliInput.value = "";
+    hargaJualInput.value = "";
+    qtyInput.value = "";
+    totalInput.value = "";
+
+    if (!kategori) return;
+
+    fetch(`${urlBase}?action=nama&kategori=${encodeURIComponent(kategori)}`)
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(nama => {
+          namaDropdown.innerHTML += `<option value="${nama}">${nama}</option>`;
+        });
+      });
+  });
+
+  // Ketika Nama Produk berubah
+  namaDropdown.addEventListener("change", function () {
+    const kategori = kategoriDropdown.value;
+    const nama = this.value;
+    warnaDropdown.innerHTML = '<option value="">Pilih Warna</option>';
+    hargaBeliInput.value = "";
+    hargaJualInput.value = "";
+    qtyInput.value = "";
+    totalInput.value = "";
+
+    if (!kategori || !nama) return;
+
+    fetch(`${urlBase}?action=warna&kategori=${encodeURIComponent(kategori)}&nama=${encodeURIComponent(nama)}`)
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(w => {
+          warnaDropdown.innerHTML += `<option value="${w}">${w}</option>`;
+        });
+      });
+  });
+
+  // Ketika Warna dipilih
+  warnaDropdown.addEventListener("change", function () {
+    const kategori = kategoriDropdown.value;
+    const nama = namaDropdown.value;
+    const warna = this.value;
+    if (!kategori || !nama || !warna) return;
+
+    fetch(`${urlBase}?action=detail&kategori=${encodeURIComponent(kategori)}&nama=${encodeURIComponent(nama)}&warna=${encodeURIComponent(warna)}`)
+      .then(res => res.json())
+      .then(data => {
+        qtyInput.value = data.qty || "";
+        hargaBeliInput.value = data.hargaBeli ? formatRp(data.hargaBeli) : "";
+        hargaJualInput.value = data.hargaJual ? formatRp(data.hargaJual) : "";
+        updateTotal();
+      });
+  });
+
+  // Kirim Data ke Spreadsheet
+  document.getElementById("outputForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const params = new URLSearchParams();
+    params.append("type", "output");
+
+    formData.forEach((val, key) => {
+      const clean = ["hargaBeli", "hargaJual", "totalHarga"].includes(key) ? unformatRp(val) : val;
+      params.append(key, clean);
+    });
+
+    fetch(urlBase, {
+      method: "POST",
+      body: params
+    })
+    .then(res => res.text())
+    .then(result => {
+      alert(result === "Success" ? "✅ Data berhasil dikirim!" : "❌ Gagal: " + result);
+      if (result === "Success") document.getElementById("outputForm").reset();
+    });
+  });
+</script>
+</body>
+</html>
