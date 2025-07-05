@@ -174,7 +174,7 @@
     const today = new Date().toISOString().split('T')[0];
     document.getElementById("tanggal").value = today;
 
-    fetch(scriptURL + "action=kategori&tipe=input")
+    fetch(scriptURL + "?action=kategoriInput")
       .then(res => res.json())
       .then(data => {
         const dropdown = document.getElementById("kategoriDropdown");
