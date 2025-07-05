@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nue Input Produk</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #3E4C35;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background: #FEFDEB;
+      border-radius: 20px;
+      padding: 36px 28px;
+      max-width: 700px;
+      width: 100%;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ddd;
+    }
+
+    h2 {
+      text-align: center;
+      color: #3E4C35;
+      font-weight: 600;
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-top: 18px;
+      display: block;
+      font-size: 14px;
+      color: #2b2b2b;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #ccc;
+      border-radius: 14px;
+      margin-top: 8px;
+      font-size: 15px;
+      background: #ffffff;
+      box-sizing: border-box;
+      transition: all 0.25s ease;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #3E4C35;
+      background: #fff;
+      box-shadow: 0 0 0 2px rgba(62, 76, 53, 0.2);
+    }
+
+    .readonly {
+      background-color: #f5f5f5;
+      color: #555;
+    }
+
+    .rp-field {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 14px;
+      margin-top: 8px;
+      background: #fff;
+    }
+
+    .rp-field span {
+      padding: 14px 16px;
+      background: #eee;
+      border-top-left-radius: 14px;
+      border-bottom-left-radius: 14px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #3E4C35;
+      border-right: 1px solid #ccc;
+    }
+
+    .rp-field input {
+      border: none;
+      background: transparent;
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 15px;
+    }
+
+    .rp-field input:focus {
+      outline: none;
+      background: #fff;
+    }
+
+    button {
+      background: #3E4C35;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      margin-top: 36px;
+      font-weight: 600;
+      font-size: 16px;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 12px rgba(62, 76, 53, 0.3);
+    }
+
+    button:hover {
+      background: #2f3a29;
+      box-shadow: 0 6px 16px rgba(62, 76, 53, 0.4);
+    }
+
+    @media (max-width: 480px) {
+      h2 { font-size: 20px; }
+      input, select { font-size: 14px; }
+      button { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>INPUT PRODUK</h2>
+    <form id="produkForm">
+      <label for="tanggal">Tanggal</label>
+      <input type="date" name="tanggal" id="tanggal" />
+
+      <label for="nama">Nama Produk</label>
+      <input type="text" name="nama" id="nama" required />
+
+      <label for="warna">Warna</label>
+      <input type="text" name="warna" id="warna" required />
+
+      <label for="kategori">Kategori</label>
+      <select name="kategori" id="kategoriDropdown" required>
+        <option value="">Memuat...</option>
+      </select>
+
+      <label for="harga">Harga Beli</label>
+      <div class="rp-field">
+        <span>Rp</span>
+        <input type="text" name="harga" id="harga" required />
+      </div>
+
+      <label for="qty">Qty</label>
+      <input type="number" name="qty" id="qty" required />
+
+      <label for="hargaTotal">Harga Total</label>
+      <div class="rp-field">
+        <span>Rp</span>
+        <input type="text" name="hargaTotal" id="hargaTotal" class="readonly" readonly />
+      </div>
+
+      <label for="keterangan">Keterangan</label>
+      <select name="keterangan" required>
+        <option value="">Pilih Keterangan</option>
+        <option value="Stok Awal">Stok Awal</option>
+        <option value="Barang Masuk">Barang Masuk</option>
+      </select>
+
+      <button type="submit">✨ Kirim Data</button>
+    </form>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycby2XSdHhbYpX0Y4d0vie_7kv8ZK7XuBZVgp3lEA59Ug7Ii8BlswEzUWzs5Jq6xnK4Y3hQ/exec";
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("tanggal").value = today;
+
+    fetch(scriptURL + "?action=kategori")
+      .then(res => res.json())
+      .then(data => {
+        const dropdown = document.getElementById("kategoriDropdown");
+        dropdown.innerHTML = '<option value="">Pilih Kategori</option>';
+        data.forEach(item => {
+          dropdown.innerHTML += `<option value="${item}">${item}</option>`;
+        });
+      });
+
+    const hargaInput = document.getElementById("harga");
+    const qtyInput = document.getElementById("qty");
+    const totalInput = document.getElementById("hargaTotal");
+
+    function formatRp(nilai) {
+      return nilai.toLocaleString("id-ID");
+    }
+
+    function updateTotal() {
+      const harga = parseInt(hargaInput.value.replace(/\D/g, '') || 0);
+      const qty = parseInt(qtyInput.value || 0);
+      const total = harga * qty;
+      totalInput.value = isNaN(total) ? "" : formatRp(total);
+    }
+
+    hargaInput.addEventListener("input", function () {
+      let val = this.value.replace(/\D/g, "");
+      this.value = formatRp(Number(val));
+      updateTotal();
+    });
+
+    qtyInput.addEventListener("input", updateTotal);
+
+    document.getElementById("produkForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const harga = parseInt(hargaInput.value.replace(/\D/g, '') || 0);
+      const qty = parseInt(form.qty.value || 0);
+      const total = harga * qty;
+
+      const data = {
+        tanggal: form.tanggal.value,
+        nama: form.nama.value,
+        warna: form.warna.value,
+        kategori: form.kategori.value,
+        harga: harga,
+        qty: qty,
+        total: total,
+        keterangan: form.keterangan.value
+      };
+
+      const formData = new FormData();
+      for (let key in data) {
+        formData.append(key, data[key]);
+      }
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: formData,
+      })
+      .then(() => {
+        alert("✅ Data berhasil dikirim!");
+        form.reset();
+        document.getElementById("tanggal").value = today;
+        totalInput.value = "";
+      })
+      .catch(() => alert("❌ Gagal mengirim data."));
+    });
+  </script>
+</body>
+</html>
