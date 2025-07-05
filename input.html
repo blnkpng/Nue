@@ -238,7 +238,9 @@ fetch(scriptURL + "?action=kategoriInput")
       for (let key in data) {
         formData.append(key, data[key]);
       }
-
+  // ⬅️ Tambahkan baris ini:
+    formData.append("type", "input");
+      
       fetch(scriptURL, {
         method: "POST",
         body: formData,
