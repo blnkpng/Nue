@@ -174,15 +174,24 @@
     const today = new Date().toISOString().split('T')[0];
     document.getElementById("tanggal").value = today;
 
-    fetch(scriptURL + "?action=kategoriInput")
-      .then(res => res.json())
-      .then(data => {
-        const dropdown = document.getElementById("kategoriDropdown");
-        dropdown.innerHTML = '<option value="">Pilih Kategori</option>';
-        data.forEach(item => {
-          dropdown.innerHTML += `<option value="${item}">${item}</option>`;
-        });
+fetch(scriptURL + "?action=kategoriInput")
+  .then(res => res.text())
+  .then(text => {
+    try {
+      const data = JSON.parse(text);
+      const dropdown = document.getElementById("kategoriDropdown");
+      dropdown.innerHTML = '<option value="">Pilih Kategori</option>';
+      data.forEach(item => {
+        dropdown.innerHTML += `<option value="${item}">${item}</option>`;
       });
+    } catch (e) {
+      console.error("Gagal parsing JSON. Respon dari server:", text);
+    }
+  })
+  .catch(err => {
+    console.error("Fetch error:", err);
+  });
+
 
     const hargaInput = document.getElementById("harga");
     const qtyInput = document.getElementById("qty");
